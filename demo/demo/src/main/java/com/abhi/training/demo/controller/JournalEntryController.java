@@ -21,10 +21,8 @@ public class JournalEntryController {
     @GetMapping("/getEntry/{userName}")
     public ResponseEntity <List<JournalEntry>> getAllJournalEntriesOfUSer(@PathVariable String userName){
         var user = userService.findByUserName(userName);
-        if(user.isPresent()){
-            return new ResponseEntity<>(user.get().getJournalEntries(),HttpStatus.OK);
-        }
-        return ResponseEntity.notFound().build();
+        return user.map(user1->ResponseEntity.ok(user1.getJournalEntries()))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/publishEntry/{userName}")
