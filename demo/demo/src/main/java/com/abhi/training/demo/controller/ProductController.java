@@ -26,4 +26,11 @@ public class ProductController {
                 .map(products -> ResponseEntity.ok(products))
                 .orElseGet(() ->ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/getWebclientProducts")
+    public ResponseEntity<List<Product>> getWebclientProducts(){
+        return productService.getWebClientProducts()
+                .map(products -> ResponseEntity.ok(products))
+                .orElseGet(() ->ResponseEntity.notFound().build());
+    }
 }
